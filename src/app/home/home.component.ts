@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { HttpResponse } from '@angular/common/http';
-import {Subject} from "rxjs";
+import { Subject } from "rxjs";
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
 	ngOnInit() {
-		this.apiService.get().pipe(takeUntil(this.destroy$)).subscribe((res: HttpResponse<any>)=>{  
+		this.apiService.sendGetRequest().pipe(takeUntil(this.destroy$)).subscribe((res: HttpResponse<any>)=>{  
 			console.log(res);  
 			this.products = res.body;  
 		})    
