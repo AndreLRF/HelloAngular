@@ -21,7 +21,7 @@ export class ApiService {
   constructor(private httpClient: HttpClient) { }
 
   public sendGetRequest() {
-        return this.httpClient.get(this.SERVER_URL,
+    return this.httpClient.get(this.SERVER_URL,
       {
         params: new HttpParams({ fromString: "_page=1&_limit=5" }),
         observe: "response"
@@ -34,15 +34,15 @@ export class ApiService {
   }
 
   public sendGetRequestToUrl(url: string) {
-    return this.httpClient.get(url, { observe: "response" })
-    .pipe(retry(3),
-      catchError(this.handleError),
-      tap(res => {
-        console.log(res.headers.get('Link'));
-        this.parseLinkHeader(res.headers.get('Link'));
-      }));
-  }
 
+    return this.httpClient.get(url, { observe: "response" })
+      .pipe(retry(3),
+        catchError(this.handleError),
+        tap(res => {
+          console.log(res.headers.get('Link'));
+          this.parseLinkHeader(res.headers.get('Link'));
+        }));
+  }
 
   handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
